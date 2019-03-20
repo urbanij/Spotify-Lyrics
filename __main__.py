@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
 import spotipy.util as util
@@ -8,37 +9,24 @@ import time
 
 query = ''
 currentSong = ''
-PORT_NUMBER = 8080
-SPOTIPY_CLIENT_ID = '<YOUR ID>' # Your SPOTIPY_CLIENT_ID and SPOTIPY_CLIENT_SECRET can be created at https://developer.spotify.com/
-SPOTIPY_CLIENT_SECRET = '<YOUR SECRET KEY>'
-SPOTIPY_REDIRECT_URI = 'http://localhost:8080/callback/'
-SCOPE = 'user-library-read'
-CACHE = '.spotipyoauthcache'
-username = '<YOUR USERNAME>'
-scope = 'user-read-currently-playing'
+TOKEN = '<oauth token here>'
+# Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
 
 
 def song_data():
     global query
-    currentSongData = []
-    remove = ['name', "'", '"', '\n', ',', ':', " '", ' Various Artists', 'Remastered Version']
-    token = util.prompt_for_user_token(username,scope,client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
-    sp = spotipy.Spotify(auth=token)
-    playing = json.dumps(sp.current_user_playing_track(), sort_keys=True, indent=0)
-    s = StringIO(str(playing))
-    for line in s:
-        if 'name' in line:
-            for char in remove:
-                line = line.replace(char, '')
-            if '-' in line:
-                line = line[:line.find('-')]
-            currentSongData.append(line)
-    try:
-        query = currentSongData[len(currentSongData) - 1] + '+lyrics'
-        display = (currentSongData[len(currentSongData) - 1] + currentSongData[0])
-        return display
-    except IndexError:
-        return 'Device Disconnected'
+    headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + TOKEN,
+    }
+
+    response = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=headers)
+    json_data = json.loads(response.text)
+    ARTIST = json_data["item"]["artists"][0]["name"]
+    SONG = json_data["item"]["name"]
+    query = SONG + " " + ARTIST + " +lyrics"
+    return('Artist: %s, Song: %s' % (ARTIST, SONG))
 
 
 headers_Get = {
