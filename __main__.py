@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
-import spotipy.util as util
-import spotipy
 import json
 from io import StringIO
 import time
