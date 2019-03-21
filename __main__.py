@@ -78,6 +78,7 @@ def main():
 
     while True:  # Main loop
         if song_data() != currentSong:  # Check if the song has changed
+            os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen 
             print(song_data())  # Print song info
             print(get_Song_Lyrics(query))  # Print lyrics
             currentSong = song_data()
