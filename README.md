@@ -1,11 +1,11 @@
 # Intro
-The script will get your currently playing song on Spotify and automatically grab the lyrics
+The script will get your currently playing song on Spotify and automatically grab the lyrics. 
 
 # Setup
 ## Install requirements
 `pip3 install -r requirements.txt`
 
-## Start program 
+## Start program
 Export your Spotify Username and PW as environment variables and then start the script.  e.g.  
 
 ```
@@ -16,6 +16,6 @@ python3 __main__.py
 
 
 # Credits
-Forked from https://github.com/PappaStalin/Spotify-Lyrics  
+Originally forked from https://github.com/PappaStalin/Spotify-Lyrics  
 
-I have refactored to use the simpler oauth mechanism, and removing dependency on Spotipy which caused a tricky setup process.
+I have refactored code to my tastes, including switching to use the simpler oauth mechanism / removing dependency on Spotipy and HTTP servers, which caused a tricky setup process.
