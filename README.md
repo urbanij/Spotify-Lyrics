@@ -1,5 +1,5 @@
 # Intro
-The script will get your currently playing song on Spotify and automatically grab the lyrics. 
+The script will get your currently playing song on Spotify and automatically grab the lyrics.
 
 # Setup
 ## Install requirements
@@ -11,7 +11,7 @@ Export your Spotify Username and PW as environment variables and then start the 
 ```
 export SPOTIFY_USER=usernamehere
 export SPOTIFY_PW=pwhere
-python3 __main__.py
+python3 spotifylyrics.py
 ```
 
 
