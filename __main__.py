@@ -42,7 +42,7 @@ def song_data():
         query = SONG + " " + ARTIST + " +lyrics"
         return('Artist: %s, Song: %s' % (ARTIST, SONG))
     except:
-        print('JSON Response Error.')  # TODO handle this better
+        #print('JSON Response Error.')  # TODO handle this better
         get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token
         # print(response.content)
         return(' ')
