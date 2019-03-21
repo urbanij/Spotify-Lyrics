@@ -22,7 +22,7 @@ def get_token():
         TOKEN = data[0]
         EXPIRATION_DATE = data[1]
     except:
-        quit('Unable to get OAuth Token :-(')
+        quit('Unable to get OAuth Token :-( -- Check you have set your Spotify username and password correctly.')
 
 
 def song_data():
