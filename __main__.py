@@ -60,15 +60,15 @@ def get_Song_Lyrics(query):
             'Upgrade-Insecure-Requests': '1'
         }
 
-    minestrone = '\n'
+    lyric_text = '\n'
     s = requests.Session()
     query = '+'.join(query.split())
     url = 'https://www.google.com/search?q=' + query + '&ie=utf-8&oe=utf-8'
     r = s.get(url, headers=headers_Get)
     soup = BeautifulSoup(r.text, "html.parser").find_all("span", {"jsname": "YS01Ge"})
     for link in soup:
-        minestrone += (link.text + '\n')
-    return minestrone
+        lyric_text += (link.text + '\n')
+    return lyric_text
 
 
 def main():
