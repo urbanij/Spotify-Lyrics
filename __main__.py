@@ -17,9 +17,12 @@ TOKEN = ''
 def get_token():
     """ Get an OAuth token for Spotify """
     global TOKEN
-    data = st.start_session(USER,PW)
-    TOKEN = data[0]
-    expiration_date = data[1]
+    try:
+        data = st.start_session(USER,PW)
+        TOKEN = data[0]
+        EXPIRATION_DATE = data[1]
+    except:
+        print('Unable to get OAuth Token :-(')
 
 
 def song_data():
