@@ -26,6 +26,7 @@ def get_token():
 
 
 def song_data():
+    """ Query the Spotify API for currently playing song """
     global query
     headers = {
     'Accept': 'application/json',
@@ -48,6 +49,7 @@ def song_data():
 
 
 def get_Song_Lyrics(query):
+    """ Download lyrics for current song """
     headers_Get = {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -70,6 +72,7 @@ def get_Song_Lyrics(query):
 
 
 def main():
+    """ Main loop """
     get_token()  # Get an oAuth token
     currentSong = ''
 
@@ -82,6 +85,7 @@ def main():
 
 
 if __name__ == '__main__':
+    """ Boilerplate """
     try:
         main()
     except KeyboardInterrupt:
