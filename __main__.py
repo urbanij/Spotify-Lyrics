@@ -36,6 +36,7 @@ def song_data():
         SONG = json_data["item"]["name"]
     except:
         print('JSON Response Error.')  # TODO handle this better
+        get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token 
         # print(response.content)
         return(' ')
     finally:
@@ -77,7 +78,7 @@ def main():
             print(song_data())
             print(get_Song_Lyrics(query))
             currentSong = song_data()
-        time.sleep(3)
+        time.sleep(1)
 
 
 if __name__ == '__main__':
