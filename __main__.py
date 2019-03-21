@@ -7,7 +7,7 @@ import time
 
 query = ''
 currentSong = ''
-TOKEN = '<OAuth Token Here>'
+TOKEN = '<OAuth token here>'
 # Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
 
 
@@ -25,8 +25,8 @@ def song_data():
         ARTIST = json_data["item"]["artists"][0]["name"]
         SONG = json_data["item"]["name"]
     except:
-        print('JSON Response Error, dumping')
-        print(json_data)
+        # print('JSON Response Error, dumping')
+        # print(response.content)
         ARTIST = 'Rick Astley'  # Rick Roll on error, I guess
         SONG = 'never gonna give you up'
     finally:
@@ -67,7 +67,7 @@ def main():
             print(song_data())
             print(get_Song_Lyrics(query))
             currentSong = song_data()
-        time.sleep(0.01)
+        time.sleep(3)
 
 
 if __name__ == '__main__':
