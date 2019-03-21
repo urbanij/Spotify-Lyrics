@@ -47,18 +47,17 @@ def song_data():
         return(' ')
 
 
-headers_Get = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1'
-    }
-
-
 def get_Song_Lyrics(query):
+    headers_Get = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1'
+        }
+
     minestrone = '\n'
     s = requests.Session()
     query = '+'.join(query.split())
@@ -76,10 +75,10 @@ def main():
 
     while True:  # Main loop
         if song_data() != currentSong:  # Check if the song has changed
-            print(song_data())
-            print(get_Song_Lyrics(query))
+            print(song_data())  # Print song info
+            print(get_Song_Lyrics(query))  # Print lyrics
             currentSong = song_data()
-        time.sleep(1)
+        time.sleep(1)  # Delay between checking the Spotify API again
 
 
 if __name__ == '__main__':
