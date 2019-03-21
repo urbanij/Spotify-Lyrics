@@ -22,7 +22,7 @@ def get_token():
         TOKEN = data[0]
         EXPIRATION_DATE = data[1]
     except:
-        print('Unable to get OAuth Token :-(')
+        quit('Unable to get OAuth Token :-(')
 
 
 def song_data():
