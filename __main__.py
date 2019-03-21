@@ -15,6 +15,7 @@ TOKEN = ''
 
 
 def get_token():
+    """ Get an OAuth token for Spotify """
     global TOKEN
     data = st.start_session(USER,PW)
     TOKEN = data[0]
@@ -34,14 +35,13 @@ def song_data():
         json_data = json.loads(response.text)
         ARTIST = json_data["item"]["artists"][0]["name"]
         SONG = json_data["item"]["name"]
-    except:
-        print('JSON Response Error.')  # TODO handle this better
-        get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token 
-        # print(response.content)
-        return(' ')
-    finally:
         query = SONG + " " + ARTIST + " +lyrics"
         return('Artist: %s, Song: %s' % (ARTIST, SONG))
+    except:
+        print('JSON Response Error.')  # TODO handle this better
+        get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token
+        # print(response.content)
+        return(' ')
 
 
 headers_Get = {
