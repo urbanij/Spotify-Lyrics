@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
+import os
 import requests
 from bs4 import BeautifulSoup
 import json
 from io import StringIO
 import time
+import spotify_token as st
 
 query = ''
 currentSong = ''
-TOKEN = '<OAuth token here>'
-# Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
+USER = os.environ.get('SPOTIFY_USER')
+PW = os.environ.get('SPOTIFY_PW')
+TOKEN = ''
+
+
+def get_token():
+    global TOKEN
+    data = st.start_session(USER,PW)
+    TOKEN = data[0]
+    expiration_date = data[1]
 
 
 def song_data():
@@ -25,10 +35,9 @@ def song_data():
         ARTIST = json_data["item"]["artists"][0]["name"]
         SONG = json_data["item"]["name"]
     except:
-        # print('JSON Response Error, dumping')
+        print('JSON Response Error.')  # TODO handle this better
         # print(response.content)
-        ARTIST = 'Rick Astley'  # Rick Roll on error, I guess
-        SONG = 'never gonna give you up'
+        return(' ')
     finally:
         query = SONG + " " + ARTIST + " +lyrics"
         return('Artist: %s, Song: %s' % (ARTIST, SONG))
@@ -58,6 +67,7 @@ def get_Song_Lyrics(query):
 
 
 def main():
+    get_token()
     global query
     print(song_data())
     currentSong = song_data()
