@@ -7,7 +7,7 @@ import time
 
 query = ''
 currentSong = ''
-TOKEN = '<oauth token here>'
+TOKEN = '<token here>'
 # Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
 
 
@@ -64,4 +64,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Quitting..')
+        try:
+            quit()
+        except SystemExit:
+            quit()
