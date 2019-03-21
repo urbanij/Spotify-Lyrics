@@ -7,7 +7,7 @@ import time
 
 query = ''
 currentSong = ''
-TOKEN = '<OAuth Token Here'
+TOKEN = '<OAuth Token Here>'
 # Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
 
 
