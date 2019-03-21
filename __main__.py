@@ -7,7 +7,7 @@ import time
 
 query = ''
 currentSong = ''
-TOKEN = '<token here>'
+TOKEN = '<OAuth Token Here'
 # Get oauth token from https://developer.spotify.com/console/get-users-currently-playing-track/?market=
 
 
@@ -19,12 +19,19 @@ def song_data():
     'Authorization': 'Bearer ' + TOKEN,
     }
 
-    response = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=headers)
-    json_data = json.loads(response.text)
-    ARTIST = json_data["item"]["artists"][0]["name"]
-    SONG = json_data["item"]["name"]
-    query = SONG + " " + ARTIST + " +lyrics"
-    return('Artist: %s, Song: %s' % (ARTIST, SONG))
+    try:
+        response = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=headers)
+        json_data = json.loads(response.text)
+        ARTIST = json_data["item"]["artists"][0]["name"]
+        SONG = json_data["item"]["name"]
+    except:
+        print('JSON Response Error, dumping')
+        print(json_data)
+        ARTIST = 'Rick Astley'  # Rick Roll on error, I guess
+        SONG = 'never gonna give you up'
+    finally:
+        query = SONG + " " + ARTIST + " +lyrics"
+        return('Artist: %s, Song: %s' % (ARTIST, SONG))
 
 
 headers_Get = {
