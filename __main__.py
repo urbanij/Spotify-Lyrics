@@ -71,13 +71,11 @@ def get_Song_Lyrics(query):
 
 
 def main():
-    get_token()
-    global query
-    print(song_data())
-    currentSong = song_data()
-    print(get_Song_Lyrics(query))
-    while True:
-        if song_data() != currentSong:
+    get_token()  # Get an oAuth token
+    currentSong = ''
+
+    while True:  # Main loop
+        if song_data() != currentSong:  # Check if the song has changed
             print(song_data())
             print(get_Song_Lyrics(query))
             currentSong = song_data()
