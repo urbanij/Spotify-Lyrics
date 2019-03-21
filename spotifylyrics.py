@@ -40,7 +40,7 @@ def song_data():
         ARTIST = json_data["item"]["artists"][0]["name"]
         SONG = json_data["item"]["name"]
         query = SONG + " " + ARTIST + " +lyrics"
-        return('Artist: %s, Song: %s' % (ARTIST, SONG))
+        return('Artist: %s\nSong: %s' % (ARTIST, SONG))
     except:
         #print('JSON Response Error.')  # TODO handle this better
         get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token
@@ -78,7 +78,7 @@ def main():
 
     while True:  # Main loop
         if song_data() != currentSong:  # Check if the song has changed
-            os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen 
+            os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen
             print(song_data())  # Print song info
             print(get_Song_Lyrics(query))  # Print lyrics
             currentSong = song_data()
