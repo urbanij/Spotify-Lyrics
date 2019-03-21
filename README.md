@@ -2,6 +2,10 @@
 The script will get your currently playing song on Spotify and automatically grab the lyrics
 
 # Setup
+## Install requirements
+`pip3 install -r requirements.txt`
+
+## Start program 
 Export your Spotify Username and PW as environment variables and then start the script.  e.g.  
 
 ```
