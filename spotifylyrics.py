@@ -81,7 +81,7 @@ def main():
             os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen
             print(song_data())  # Print song info
             lyrics = get_Song_Lyrics(query)
-            if len(lyrics) < 10:
+            if len(lyrics) < 2:
                 print('\nNo lyrics found 🎸')
             else:
                 print(lyrics)
