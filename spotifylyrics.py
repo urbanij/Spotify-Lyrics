@@ -80,7 +80,11 @@ def main():
         if song_data() != currentSong:  # Check if the song has changed
             os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen
             print(song_data())  # Print song info
-            print(get_Song_Lyrics(query))  # Print lyrics
+            lyrics = get_Song_Lyrics(query)
+            if len(lyrics) < 10:
+                print('\nNo lyrics found 🎸')
+            else:
+                print(lyrics)
             currentSong = song_data()
         time.sleep(1)  # Delay between checking the Spotify API again
 
