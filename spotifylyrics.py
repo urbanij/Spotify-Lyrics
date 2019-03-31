@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Sun Mar 31 14:41:46 CEST 2019
+# https://urbanij.github.io/
+
+# forked from:      https://github.com/richstokes/Spotify-Lyrics
+# original author:  github.com/PappaStalin
+# .
+# └── https://github.com/PappaStalin/Spotify-Lyrics
+#     └── https://github.com/richstokes/Spotify-Lyrics
+
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -7,12 +18,16 @@ from io import StringIO
 import time
 import spotify_token as st
 
-query = ''
-currentSong = ''
-USER = os.environ.get('SPOTIFY_USER')
-PW = os.environ.get('SPOTIFY_PW')
-TOKEN = ''
+query                   = ''
+currentSong             = ''
+USER                    = os.environ.get('SPOTIFY_USERNAME')
+PW                      = os.environ.get('SPOTIFY_PASSWORD')
+TOKEN                   = ''
 
+
+TELEGRAM_BOT_BASE_URL   = "https://api.telegram.org/bot"
+BOT_TOKEN               = os.getenv('SPOTIFY_LYRICS_BOT_TOKEN')
+CHAT_ID                 = os.getenv('MY_TELEGRAM_ID')
 
 def get_token():
     """ Get an OAuth token for Spotify """
@@ -37,10 +52,10 @@ def song_data():
     try:
         response = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=headers)
         json_data = json.loads(response.text)
-        ARTIST = json_data["item"]["artists"][0]["name"]
-        SONG = json_data["item"]["name"]
-        query = SONG + " " + ARTIST + " +lyrics"
-        return('Artist: %s\nSong: %s' % (ARTIST, SONG))
+        artist = json_data["item"]["artists"][0]["name"]
+        song = json_data["item"]["name"]
+        query = song + " " + artist + " +lyrics"
+        return(f"{song} by {artist}")
     except:
         #print('JSON Response Error.')  # TODO handle this better
         get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token
@@ -71,6 +86,7 @@ def get_Song_Lyrics(query):
     return lyric_text
 
 
+
 def main():
     """ Main loop """
     get_token()  # Get an oAuth token
@@ -84,9 +100,12 @@ def main():
             if len(lyrics) < 2:
                 print('\nNo lyrics found 🎸')
             else:
+                # print lyrics to the terminal and send them over Telegram using a bot.
                 print(lyrics)
+                requests.get(f"{TELEGRAM_BOT_BASE_URL}{BOT_TOKEN}/sendmessage?chat_id={CHAT_ID}&text={song_data()}\n{lyrics}&parse_mode=markdown&disable_notification=False")
+
             currentSong = song_data()
-        time.sleep(1)  # Delay between checking the Spotify API again
+        time.sleep(3)  # Delay between checking the Spotify API again
 
 
 if __name__ == '__main__':
