@@ -55,7 +55,8 @@ def song_data():
         artist = json_data["item"]["artists"][0]["name"]
         song = json_data["item"]["name"]
         query = song + " " + artist + " +lyrics"
-        return(f"{song} by {artist}")
+        # return(f"{song} by {artist}")
+        return (song, artist)
     except:
         #print('JSON Response Error.')  # TODO handle this better
         get_token()  # Hacky, but fair to assume if API is not responding it could be due to an expired token
@@ -95,14 +96,14 @@ def main():
     while True:  # Main loop
         if song_data() != currentSong:  # Check if the song has changed
             os.system('cls' if os.name == 'nt' else 'clear')  # Clear screen
-            print(song_data())  # Print song info
+            print(f"{song_data()[0]} by {song_data()[1]}")  # Print song info
             lyrics = get_Song_Lyrics(query)
             if len(lyrics) < 2:
                 print('\nNo lyrics found 🎸')
             else:
                 # print lyrics to the terminal and send them over Telegram using a bot.
                 print(lyrics)
-                requests.get(f"{TELEGRAM_BOT_BASE_URL}{BOT_TOKEN}/sendmessage?chat_id={CHAT_ID}&text={song_data()}\n{lyrics}&parse_mode=markdown&disable_notification=False")
+                requests.get(f"{TELEGRAM_BOT_BASE_URL}{BOT_TOKEN}/sendmessage?chat_id={CHAT_ID}&text=*{song_data()[0]}* _by_ *{song_data()[1]}*\n{lyrics}&parse_mode=markdown&disable_notification=False")
 
             currentSong = song_data()
         time.sleep(3)  # Delay between checking the Spotify API again

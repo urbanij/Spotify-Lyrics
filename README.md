@@ -15,6 +15,7 @@ Export your Spotify Username and PW as environment variables and then start the 
 ```
 export SPOTIFY_USERNAME=usernamehere
 export SPOTIFY_PASSWORD=pwhere
+
 export SPOTIFY_LYRICS_BOT_TOKEN=tokenhere
 export MY_TELEGRAM_ID=idhere
 
